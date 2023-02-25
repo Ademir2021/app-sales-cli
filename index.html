@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="?" />
+  <title>List Itens</title>
+</head>
+
+<body>
+  <header>
+    <h1>Console de Vendas</h1>
+  </header>
+  <main>
+    <datalist id="data_itens">
+      <option id="options"></option>
+    </datalist>
+    <input type="search" list="data_itens" id="submit_item" name="submit_item">
+    <input type="number" id="submit_amount" name="submit_amount" value="1">
+    <button onclick="insertItem()">Salvar</button><br></br>
+
+    <div class="content">
+      <table border="1">
+        <thead>
+          <th class="center">ID</th>
+          <th>ITem</th>
+          <th>Amount</th>
+          <th class="center">Ações</th>
+        </thead>
+        <tbody id="tbody">
+        </tbody>
+      </table>
+    </div>
+
+  </main>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script src="./script.js"></script>
+</body>
+
+</html>
