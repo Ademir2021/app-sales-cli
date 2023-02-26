@@ -5,45 +5,47 @@ const option = document.getElementById("options");
 let id = 0
 const itens = []
 let editId = null
+insertItem() /**Importante !! já inicia invocando a esta função */
 
-const products = [
-    { id: 1, item: "Mouse", bar_code: 123 },
-    { id: 2, item: "Teclado", bar_code: 1234 },
-    { id: 3, item: "Conector F", bar_code: 12345 }
-]
-products.map((val) => {
-    option.innerHTML += ` 
-    <option value = "${val.item}"></option>`
-})
+async function insertItem() {
 
-function insertItem() {
-    const setItem = getItem.value
-    const setAmount = getAmount.value
-    for (let i = 0; products.length > i; i++)
-        if (setItem == products[i].item
-            || setItem == products[i].id
-            || setItem == products[i].bar_code) { /**init sales */
-            const item = {}
-            item.id = id++
-            item.item = products[i].item
-            item.amount = setAmount
+    await fetch(url)
+        .then(data => {
+            return data.json();
+        })
+        .then(products => {/** console.log(products)*/
+            products.map((val) => {
+                option.innerHTML += ` 
+        <option value = "${val.descric_product}"></option>`
+            })
 
-            if (item.item != "" && item.amount > 0) {
-                if (editId == null) {
-                    itens.push(item)
-                    listItens()
-                    cancelItens()
-                } else {
-                    edit(editId, item)
-                    listItens()
-                    cancelItens()
+            const setItem = getItem.value
+            const setAmount = getAmount.value
+            for (let i = 0; products.length > i; i++)
+                if (setItem == products[i].descric_product //item
+                    || setItem == products[i].id_product //id
+                    || setItem == products[i].bar_code) { /**init sales */
+                    const item = {}
+                    item.id = id++
+                    item.item = products[i].descric_product
+                    item.amount = setAmount
+
+                    if (item.item != "" && item.amount > 0) {
+                        if (editId == null) {
+                            itens.push(item)
+                            listItens()
+                            cancelItens()
+                        } else {
+                            edit(editId, item)
+                            listItens()
+                            cancelItens()
+                        }
+                    } else {
+                        valFields(item)
+                    }
                 }
-            } else {
-                valFields(item)
-            }
-        }
-    }
-
+        })
+}
 function edit(id, item) {
     for (let i = 0; i < itens.length; i++) {
         if (itens[i].id == id) {
@@ -52,7 +54,6 @@ function edit(id, item) {
         }
     }
 }
-
 
 function listItens() {
     let tbody = document.getElementById('tbody')

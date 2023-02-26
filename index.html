@@ -19,12 +19,13 @@
       <option id="options"></option>
     </datalist>
     <div class="card">
-    <div class="line_input">
-    <input type="search" list="data_itens" id="submit_item">
-    <input type="number" id="submit_amount" value="1">
-    <button onclick="insertItem()" id="btn1">Salvar</button><br></br>
-    <button onclick="cancelItens()" >Cancelar</button><br></br>
-  </div>
+      <div class="line_input">
+        <input type="search" list="data_itens" id="submit_item"
+          placeholder="Pesquise um item :: ID: | Descrição | Barras" required>
+        <input type="number" id="submit_amount" value="1" placeholder="Informe a quantidade: > (0)" required>
+        <button onclick="insertItem()" id="btn1">Salvar</button><br></br>
+        <button onclick="cancelItens()">Cancelar</button><br></br>
+      </div>
     </div>
     <div class="content">
       <table border="1">
