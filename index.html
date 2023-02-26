@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="icon" type="image/png" href="?" />
+  <link href="css/style.css" rel="stylesheet">
   <title>List Itens</title>
 </head>
 
@@ -17,16 +18,19 @@
     <datalist id="data_itens">
       <option id="options"></option>
     </datalist>
-    <input type="search" list="data_itens" id="submit_item" name="submit_item">
-    <input type="number" id="submit_amount" name="submit_amount" value="1">
+    <div class="card">
+    <div class="line_input">
+    <input type="search" list="data_itens" id="submit_item">
+    <input type="number" id="submit_amount" value="1">
     <button onclick="insertItem()">Salvar</button><br></br>
-
+  </div>
+    </div>
     <div class="content">
       <table border="1">
         <thead>
           <th class="center">ID</th>
-          <th>ITem</th>
-          <th>Amount</th>
+          <th class="">ITem</th>
+          <th class="center">Quantidade</th>
           <th class="center">Ações</th>
         </thead>
         <tbody id="tbody">

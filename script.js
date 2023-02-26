@@ -1,12 +1,11 @@
-const url_prod = "http://localhost:3000/products"
+const url = "http://localhost:3000/products"
 const getItem = document.getElementById("submit_item")
 const getAmount = document.getElementById("submit_amount")
 const option = document.getElementById("options");
-
 let id = 0
 const itens = []
 
-const products = [ /**inclui estes itens */
+const products = [
     { id: 1, item: "Mouse", bar_code: 123 },
     { id: 2, item: "Teclado", bar_code: 1234 },
     { id: 3, item: "Conector F", bar_code: 12345 }
@@ -28,7 +27,7 @@ function insertItem() {
             item.item = products[i].item
             item.amount = setAmount
 
-            if (item.item && item.amount != "") {
+            if (item.item != "" && item.amount > 0) {
                 itens.push(item)
                 listItens()
                 cancelItens()
@@ -79,11 +78,11 @@ function delItem(id) {
 
 function valFields(item) {
     let msg = ''
-    if (item.item == '') { msg += 'Pesquise um Item !!\n' };
-    if (item.amount == '') { msg += 'Informe a Quant !!\n' };
+    if (item.item == '') { msg += 'Pesquise um Item !!\n' }
+    if (item.amount < 1) { msg += 'Informe a Quant !!\n' }
     if (msg != '') {
-        alert(msg);
-        return false;
-    };
-    return true;
+        alert(msg)
+        return false
+    }
+    return true
 }
