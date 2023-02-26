@@ -6,7 +6,7 @@ async function getUser() {
     try {
         const response = await axios.get(url,);
         const res = response.data
-        console.log(res);
+        
     } catch (error) {
         console.error(error);
     }

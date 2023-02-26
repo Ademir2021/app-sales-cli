@@ -4,6 +4,7 @@ const getAmount = document.getElementById("submit_amount")
 const option = document.getElementById("options");
 let id = 0
 const itens = []
+let editId = null
 
 const products = [
     { id: 1, item: "Mouse", bar_code: 123 },
@@ -28,19 +29,35 @@ function insertItem() {
             item.amount = setAmount
 
             if (item.item != "" && item.amount > 0) {
-                itens.push(item)
-                listItens()
-                cancelItens()
+                if (editId == null) {
+                    itens.push(item)
+                    listItens()
+                    cancelItens()
+                } else {
+                    edit(editId, item)
+                    listItens()
+                    cancelItens()
+                }
             } else {
                 valFields(item)
             }
         }
+    }
+
+function edit(id, item) {
+    for (let i = 0; i < itens.length; i++) {
+        if (itens[i].id == id) {
+            itens[i].item = item.item
+            itens[i].amount = item.amount
+        }
+    }
 }
+
 
 function listItens() {
     let tbody = document.getElementById('tbody')
     tbody.innerText = ''
-    for (i = 0; i < itens.length; i++) {
+    for (let i = 0; i < itens.length; i++) {
         let tr = tbody.insertRow()
         let td_id = tr.insertCell()
         let td_item = tr.insertCell()
@@ -52,6 +69,7 @@ function listItens() {
         td_id.classList.add("center")
         let imgEdit = document.createElement('img')
         imgEdit.src = 'img/edit.svg'
+        imgEdit.setAttribute("onclick", "prepareEdition(" + JSON.stringify(itens[i]) + ")")
         let imgDelete = document.createElement('img')
         imgDelete.src = 'img/delete.svg'
         imgDelete.setAttribute("onclick", "delItem(" + itens[i].id + ")")
@@ -64,14 +82,19 @@ function listItens() {
 function cancelItens() {
     document.getElementById("submit_item").value = ""
     document.getElementById("submit_amount").value = ""
+
+    document.getElementById('btn1').innerText = "Salvar"
+    editId = null
 }
 
 function delItem(id) {
-    let tbody = document.getElementById("tbody")
-    for (let i = 0; itens.length > i; i++) {
-        if (itens[i].id == id) {
-            itens.splice(i, 1)
-            tbody.deleteRow(i)
+    if (confirm("Deseja remover o produto do ID: " + id)) {
+        let tbody = document.getElementById("tbody")
+        for (let i = 0; itens.length > i; i++) {
+            if (itens[i].id == id) {
+                itens.splice(i, 1)
+                tbody.deleteRow(i)
+            }
         }
     }
 }
@@ -85,4 +108,13 @@ function valFields(item) {
         return false
     }
     return true
+}
+
+function prepareEdition(dados) {
+    if (confirm("deseja relamente atualizar o item: " + dados.id)) {
+        editId = dados.id
+        document.getElementById("submit_item").value = dados.item
+        document.getElementById("submit_amount").value = dados.amount
+        document.getElementById('btn1').innerText = 'Atualizar'
+    }
 }
