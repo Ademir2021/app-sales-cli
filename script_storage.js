@@ -4,21 +4,33 @@ const getAmount = document.getElementById("submit_amount")
 const option = document.getElementById("options");
 const total = document.getElementById("total");
 let id = 0
-const itens = []
+//const itens = []
+const itens = JSON.parse(localStorage.getItem('key'))
 let editId = null
 insertItem() /**Importante !! já inicia invocando a esta função */
 
 async function insertItem() {
-    try{
+
+    if (JSON.parse(localStorage.getItem('key') == null)) {
+        const itens = []
+        localStorage.setItem('key', JSON.stringify(itens))
+        window.location.reload();
+    }
+
+    if (itens[0] != null) {
+        listItens()
+    }
+
     await fetch(url)
         .then(data => {
             return data.json();
         })
-        .then(products => { /** console.log(products)*/
+        .then(products => {/** console.log(products)*/
             products.map((val) => {
                 option.innerHTML += ` 
-    <option value = "${val.descric_product}"></option>`
+        <option value = "${val.descric_product}"></option>`
             })
+
             const setItem = getItem.value
             const setAmount = getAmount.value
             for (let i = 0; products.length > i; i++)
@@ -32,28 +44,32 @@ async function insertItem() {
                     item.amount = setAmount
                     item.valor = parseFloat(products[i].val_max_product).toFixed(3)
                     item.tItem = parseFloat(item.amount * item.valor).toFixed(3)
+                    let sum = sumItens()
+                    item.tItens = parseFloat(sum).toFixed(2)
                     save(item)
                 }
         })
-    }catch(error){
-        alert("API de itens não localizada !!")
-        console.log(error, "Error Occurred !!")}
 }
 
 function save(item) {
-    sumItens()
+sumItens()
     if (valFields(item)) {
         if (editId == null) {
             itens.push(item)
+            localStorage.setItem('key', JSON.stringify(itens))
             listItens()
             sumItens()
             cancelItens()
         } else {
             edit(editId, item)
+            resetTItens()
             listItens()
+            sumItens()
             cancelItens()
+            window.location.reload();
         }
     }
+
 }
 
 function edit(id, item) {
@@ -64,11 +80,13 @@ function edit(id, item) {
             itens[i].amount = item.amount
             itens[i].valor = item.valor
             itens[i].tItem = item.tItem
+            itens[i].tItens = item.tItens
         }
     }
 }
 
 function listItens() {
+
     let tbody = document.getElementById('tbody')
     tbody.innerText = ''
     for (let i = 0; i < itens.length; i++) {
@@ -79,6 +97,7 @@ function listItens() {
         let td_amount = tr.insertCell()
         let td_valor = tr.insertCell()
         let td_tItem = tr.insertCell()
+        let td_tItens = tr.insertCell()
         let td_acoes = tr.insertCell()
         td_id.innerText = itens[i].id
         td_item.innerText = itens[i].item
@@ -86,6 +105,7 @@ function listItens() {
         td_amount.innerText = itens[i].amount
         td_valor.innerText = itens[i].valor
         td_tItem.innerText = itens[i].tItem
+        td_tItens.innerText = itens[i].tItens
         td_id.classList.add("center")
         td_item.classList.add("center")
         td_amount.classList.add("center")
@@ -150,5 +170,17 @@ function sumItens() {
     return sum
 }//sumItens() /* exibe na tela somente se tiver item */
 
+function resetTItens() {
+    for (let i = 0; itens.length > i; i++) {
+        itens[i].tItens = 0
+    }
+}
 
+function removeList() {
+    localStorage.removeItem('key');
+    const itens = []
+    localStorage.setItem('key', JSON.stringify(itens))
+    window.location.reload();
+    listItens()
+}
 
