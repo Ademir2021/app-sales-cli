@@ -23,25 +23,27 @@
         <input type="search" list="data_itens" id="submit_item"
           placeholder="Pesquise um item :: ID: | Descrição | Barras" required>
         <input type="number" id="submit_amount" value="1" placeholder="Informe a quantidade: > (0)" required>
-        <button onclick="insertItem()" id="btn1">Salvar</button><br></br>
-        <button onclick="cancelItens()">Cancelar</button><br></br>
+        <button onclick="insertItem()" id="btn1">Salvar</button>
+        <button onclick="cancelItens()">Cancelar</button>
       </div>
     </div>
     <div class="content">
       <table border="1">
         <thead>
           <th class="center">ID</th>
-          <th class="">ITem</th>
+          <th class="center">Item</th>
+          <th class="">Descrição Produto</th>
           <th class="center">Quantidade</th>
+          <th class="center">Valor</th>
+          <th class="center">T-Item</th>
           <th class="center">Ações</th>
         </thead>
         <tbody id="tbody">
         </tbody>
       </table>
-    </div>
-
+    </div><br>
+    <div id="total" align="right"></div>
   </main>
-  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
   <script src="./script.js"></script>
 </body>
 

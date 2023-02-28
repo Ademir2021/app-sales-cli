@@ -1,5 +1,5 @@
 //const axios = require('axios').default;
-const url = "http://localhost:3000/products"
+//const url = "http://localhost:3000/products"
 
 
 

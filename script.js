@@ -27,9 +27,11 @@ async function insertItem() {
                     || setItem == products[i].bar_code) { /**init sales */
                     const item = {}
                     item.id = id++
-                    item.item = products[i].descric_product
+                    item.item = products[i].id_product
+                    item.descric = products[i].descric_product
                     item.amount = setAmount
-
+                    item.valor = parseFloat(products[i].val_max_product).toFixed(3)
+                    item.tItem = parseFloat(item.amount * item.valor).toFixed(3)
                     if (item.item != "" && item.amount > 0) {
                         if (editId == null) {
                             itens.push(item)
@@ -45,29 +47,42 @@ async function insertItem() {
                     }
                 }
         })
+
 }
 function edit(id, item) {
     for (let i = 0; i < itens.length; i++) {
         if (itens[i].id == id) {
             itens[i].item = item.item
+            itens[i].descric = item.descric
             itens[i].amount = item.amount
+            itens[i].valor = item.valor
+            itens[i].tItem = item.tItem
         }
     }
 }
 
 function listItens() {
+
     let tbody = document.getElementById('tbody')
     tbody.innerText = ''
     for (let i = 0; i < itens.length; i++) {
         let tr = tbody.insertRow()
         let td_id = tr.insertCell()
         let td_item = tr.insertCell()
+        let td_descric = tr.insertCell()
         let td_amount = tr.insertCell()
+        let td_valor = tr.insertCell()
+        let td_tItem = tr.insertCell()
         let td_acoes = tr.insertCell()
         td_id.innerText = itens[i].id
         td_item.innerText = itens[i].item
+        td_descric.innerText = itens[i].descric
         td_amount.innerText = itens[i].amount
+        td_valor.innerText = itens[i].valor
+        td_tItem.innerText = itens[i].tItem
         td_id.classList.add("center")
+        td_item.classList.add("center")
+        td_amount.classList.add("center")
         let imgEdit = document.createElement('img')
         imgEdit.src = 'img/edit.svg'
         imgEdit.setAttribute("onclick", "prepareEdition(" + JSON.stringify(itens[i]) + ")")
@@ -119,3 +134,4 @@ function prepareEdition(dados) {
         document.getElementById('btn1').innerText = 'Atualizar'
     }
 }
+
