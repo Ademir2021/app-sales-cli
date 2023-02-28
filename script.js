@@ -2,6 +2,7 @@ const url = "http://localhost:3000/products"
 const getItem = document.getElementById("submit_item")
 const getAmount = document.getElementById("submit_amount")
 const option = document.getElementById("options");
+const total = document.getElementById("total");
 let id = 0
 const itens = []
 let editId = null
@@ -35,11 +36,14 @@ async function insertItem() {
                     if (item.item != "" && item.amount > 0) {
                         if (editId == null) {
                             itens.push(item)
+                            localStorage.setItem('key', JSON.stringify(itens))
                             listItens()
+                            sumItens()
                             cancelItens()
                         } else {
                             edit(editId, item)
                             listItens()
+                            sumItens()
                             cancelItens()
                         }
                     } else {
@@ -134,4 +138,12 @@ function prepareEdition(dados) {
         document.getElementById('btn1').innerText = 'Atualizar'
     }
 }
+
+function sumItens() {
+    let sum = 0
+    for (var i = 0; i < itens.length; i++) {
+        sum += (itens[i].amount * itens[i].valor)
+    }
+    total.innerHTML = `Total Produtos: R$ ${parseFloat(sum).toFixed(2)}`
+}//sumItens() /* exibe na tela somente se tiver item */
 

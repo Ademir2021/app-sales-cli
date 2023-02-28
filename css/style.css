@@ -3,37 +3,37 @@
     padding:0;
 } */
 
-body{
+body {
     font-family: 'Courier New', Courier, monospace;
     background-color: #f0f1f1;
 }
 
-header{
+header {
     background-color: blueviolet;
     padding: 10px;
-    color:#fff;
+    color: #fff;
     text-align: center;
 }
 
-.card{
+.card {
     background-color: #fff;
     border: 1px solid #ccc;
     padding: 20px;
     margin-top: 15px;
     border-radius: 5px;
-    
+
 }
 
-main{
+main {
     padding: 30px 50px;
 }
 
-.line_input{
+.line_input {
     display: grid;
     margin-bottom: 10px;
 }
 
-input{
+input {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 3px;
@@ -41,8 +41,8 @@ input{
     margin: 3px;
 }
 
-button{
-    border:0px;
+button {
+    border: 0px;
     padding: 10px;
     outline: 0;
     background-color: blueviolet;
@@ -53,31 +53,46 @@ button{
     cursor: pointer;
     transition: all ease 0.3s;
 }
-button:hover{
+
+button:hover {
     background-color: rgb(102, 31, 168);
 }
-.content{
+
+.content {
     margin-top: 15px;
 }
 
-table{
+table {
     border-collapse: collapse;
     border: 1px solid #ccc;
     width: 100%;
 }
-table th{
+
+table th {
     background-color: rgb(214, 214, 214);
 }
 
-table th, td{
-   padding: 1px 5px;
-   text-align: left;
+table th,
+td {
+    padding: 1px 5px;
+    text-align: left;
 }
 
-table td img{
+table td img {
     cursor: pointer;
     width: 22px;
 }
-.center{
+
+.center {
     text-align: center;
+}
+
+.total {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    padding: 4px;
+    font-size: larger;
+    background: #ccc;
+    color: black;
+    text-align: right;
+    border-radius: 3px;
 }

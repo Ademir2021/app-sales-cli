@@ -24,7 +24,8 @@
           placeholder="Pesquise um item :: ID: | Descrição | Barras" required>
         <input type="number" id="submit_amount" value="1" placeholder="Informe a quantidade: > (0)" required>
         <button onclick="insertItem()" id="btn1">Salvar</button>
-        <button onclick="cancelItens()">Cancelar</button>
+        <button onclick="cancelItens()">Cancelar Operações</button>
+        <button onclick="">Enviar Venda</button>
       </div>
     </div>
     <div class="content">
@@ -42,7 +43,7 @@
         </tbody>
       </table>
     </div><br>
-    <div id="total" align="right"></div>
+    <div class="total" id="total"></div>
   </main>
   <script src="./script.js"></script>
 </body>
