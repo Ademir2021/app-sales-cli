@@ -9,35 +9,36 @@ let editId = null
 insertItem() /**Importante !! já inicia invocando esta função */
 
 async function insertItem() {
-    try{
-    await fetch(url)
-        .then(data => {
-            return data.json();
-        })
-        .then(products => { /**console.log(products) */
-            products.map((val) => {
-                option.innerHTML += ` 
-    <option value = "${val.descric_product}"></option>`
+    try {
+        await fetch(url)
+            .then(data => {
+                return data.json();
             })
-            const setItem = getItem.value
-            const setAmount = getAmount.value
-            for (let i = 0; products.length > i; i++)
-                if (setItem == products[i].descric_product /**item */
-                    || setItem == products[i].id_product /**id */
-                    || setItem == products[i].bar_code) { /**init insert Item */
-                    const item = {}
-                    item.id = id++
-                    item.item = products[i].id_product
-                    item.descric = products[i].descric_product
-                    item.amount = setAmount
-                    item.valor = parseFloat(products[i].val_max_product).toFixed(2)
-                    item.tItem = parseFloat(item.amount * item.valor).toFixed(2)
-                    save(item)
-                }
-        })
-    }catch(error){
+            .then(products => { /**console.log(products) */
+                products.map((val) => {
+                    option.innerHTML += ` 
+    <option value = "${val.descric_product}"></option>`
+                })
+                const setItem = getItem.value
+                const setAmount = getAmount.value
+                for (let i = 0; products.length > i; i++)
+                    if (setItem == products[i].descric_product /**item */
+                        || setItem == products[i].id_product /**id */
+                        || setItem == products[i].bar_code) { /**init insert Item */
+                        const item = {}
+                        item.id = id++
+                        item.item = products[i].id_product
+                        item.descric = products[i].descric_product
+                        item.amount = setAmount
+                        item.valor = parseFloat(products[i].val_max_product).toFixed(2)
+                        item.tItem = parseFloat(item.amount * item.valor).toFixed(2)
+                        save(item)
+                    }
+            })
+    } catch (error) {
         alert("API de itens não localizada !!")
-        console.log(error, "Error Occurred !!")}
+        console.log(error, "Error Occurred !!")
+    }
 }
 
 function save(item, sum) {
@@ -142,7 +143,7 @@ function prepareEdition(dados) {
     }
 }
 
-function sumItens() { 
+function sumItens() {
     let sum = 0
     for (var i = 0; i < itens.length; i++) {
         sum += (itens[i].amount * itens[i].valor)
@@ -150,17 +151,19 @@ function sumItens() {
     total.innerHTML = `Total Produto(s): R$ ${parseFloat(sum).toFixed(3)}`
     return sum
 } /**Não invocar a função sumItens() para não aparecer Total == 0 */
- 
+
 
 function payment(sum) {
     let payment = 39.80
     let tProducts = 0
     tProducts = sumItens(sum)
-    if (payment == tProducts) {
-        alert("Pagto efet. com sucesso: " + payment)
-    }else{
-        alert("O valor não bate com o Total dos Produtos !"+
-        "\nEfetue o pagamento de: " + tProducts)
+    if (tProducts == 0) { alert("Nenhum item(s) no momento") } else {
+        if (payment == tProducts) {
+            alert("Pagto efet. com sucesso: " + payment)
+            alert("venda está sendo envida ...")
+        } else {
+            alert("O valor não bate com o Total dos Produtos !" +
+                "\nEfetue o pagamento de: " + tProducts)
+        }
     }
-    return tProducts
 }
