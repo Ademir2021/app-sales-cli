@@ -161,6 +161,8 @@ function payment(sum) {
         if (payment == tProducts) {
             alert("Pagto efet. com sucesso: " + payment)
             alert("venda está sendo enviada ...")
+            alert("Venda enviada com Sucesso !!")
+            window.location.reload();
         } else {
             alert("O valor não bate com o Total dos Produtos !" +
                 "\nEfetue o pagamento de: " + tProducts)
