@@ -6,7 +6,7 @@ const total = document.getElementById("total");
 let id = 0
 const itens = []
 let editId = null
-insertItem() /**Importante !! já inicia invocando a esta função */
+insertItem() /**Importante !! já inicia invocando esta função */
 
 async function insertItem() {
     try{
@@ -30,8 +30,8 @@ async function insertItem() {
                     item.item = products[i].id_product
                     item.descric = products[i].descric_product
                     item.amount = setAmount
-                    item.valor = parseFloat(products[i].val_max_product).toFixed(3)
-                    item.tItem = parseFloat(item.amount * item.valor).toFixed(3)
+                    item.valor = parseFloat(products[i].val_max_product).toFixed(2)
+                    item.tItem = parseFloat(item.amount * item.valor).toFixed(2)
                     save(item)
                 }
         })
@@ -40,7 +40,7 @@ async function insertItem() {
         console.log(error, "Error Occurred !!")}
 }
 
-function save(item) {
+function save(item, sum) {
     sumItens()
     if (valFields(item)) {
         if (editId == null) {
@@ -147,10 +147,20 @@ function sumItens() {
     for (var i = 0; i < itens.length; i++) {
         sum += (itens[i].amount * itens[i].valor)
     }
-    total.innerHTML = `Total Produto(s): R$ ${parseFloat(sum).toFixed(2)}`
+    total.innerHTML = `Total Produto(s): R$ ${parseFloat(sum).toFixed(3)}`
     return sum
 } /**Não invocar a função sumItens() para não aparecer Total == 0 */
  
 
-
-
+function payment(sum) {
+    let payment = 39.80
+    let tProducts = 0
+    tProducts = sumItens(sum)
+    if (payment == tProducts) {
+        alert("Pagto efet. com sucesso: " + payment)
+    }else{
+        alert("O valor não bate com o Total dos Produtos !"+
+        "\nEfetue o pagamento de: " + tProducts)
+    }
+    return tProducts
+}
