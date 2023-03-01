@@ -160,7 +160,7 @@ function payment(sum) {
     if (tProducts == 0) { alert("Nenhum item(s) no momento") } else {
         if (payment == tProducts) {
             alert("Pagto efet. com sucesso: " + payment)
-            alert("venda está sendo envida ...")
+            alert("venda está sendo enviada ...")
         } else {
             alert("O valor não bate com o Total dos Produtos !" +
                 "\nEfetue o pagamento de: " + tProducts)
