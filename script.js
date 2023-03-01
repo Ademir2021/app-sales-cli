@@ -51,6 +51,7 @@ function save(item) {
         } else {
             edit(editId, item)
             listItens()
+            sumItens()
             cancelItens()
         }
     }
