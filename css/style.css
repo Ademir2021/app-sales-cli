@@ -75,7 +75,10 @@ table th {
 table th,
 td {
     padding: 1px 5px;
+    font-size: 12px;
     text-align: left;
+    color: blue;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif ;
 }
 
 table td img {
