@@ -3,13 +3,25 @@ const getItem = document.getElementById("submit_item")
 const getAmount = document.getElementById("submit_amount")
 const option = document.getElementById("options");
 const total = document.getElementById("total");
+const userLogin = document.getElementById("user");
 let id = 0
 const itens = []
 let editId = null
 insertItem() /**Importante !! já inicia invocando esta função */
 
+async function auth() {
+    const user = await JSON.parse(localStorage.getItem('key'))
+    if (user == null) {
+        window.location.replace("http://127.0.0.1:5500/auth.html");
+    }
+    else if (user != null) {
+        userLogin.innerHTML = `User Logado: ${user.user} AUTH: ${user.auth}`
+    }
+}auth()
+
 async function insertItem() {
     try {
+
         await fetch(url)
             .then(data => {
                 return data.json();
@@ -41,7 +53,7 @@ async function insertItem() {
     }
 }
 
-function save(item, sum) {
+function save(item) {
     sumItens()
     if (valFields(item)) {
         if (editId == null) {
@@ -162,10 +174,12 @@ function payment(sum) {
             alert("Pagto efet. com sucesso: " + payment)
             alert("venda está sendo enviada ...")
             alert("Venda enviada com Sucesso !!")
+            localStorage.removeItem('key');
             window.location.reload();
         } else {
+            let aPagar = tProducts - payment
             alert("O valor não bate com o Total dos Produtos !" +
-                "\nEfetue o pagamento de: " + tProducts)
+                "\nEfetue o pagamento de: " + aPagar)
         }
     }
 }
