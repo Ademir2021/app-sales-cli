@@ -1,11 +1,12 @@
 const url = "http://localhost:3000/products"
+const urlSales = "http://localhost:3000/sales"
 const getItem = document.getElementById("submit_item")
 const getAmount = document.getElementById("submit_amount")
 const option = document.getElementById("options");
 const total = document.getElementById("total");
 const userLogin = document.getElementById("user");
-let id = 0
-const itens = []
+let id = 1
+const itens = [{ disc_sale: 2.00, fk_name_pers: 1, user: "", auth: "" }]
 let editId = null
 insertItem() /**Importante !! já inicia invocando esta função */
 
@@ -16,8 +17,10 @@ async function auth() {
     }
     else if (user != null) {
         userLogin.innerHTML = `User Logado: ${user.user} AUTH: ${user.auth}`
+        itens[0].user = user.user
+        itens[0].auth = user.auth
     }
-}auth()
+} auth()
 
 async function insertItem() {
     try {
@@ -39,11 +42,11 @@ async function insertItem() {
                         || setItem == products[i].bar_code) { /**init insert Item */
                         const item = {}
                         item.id = id++
-                        item.item = products[i].id_product
+                        item.id_product = products[i].id_product
                         item.descric = products[i].descric_product
-                        item.amount = setAmount
-                        item.valor = parseFloat(products[i].val_max_product).toFixed(2)
-                        item.tItem = parseFloat(item.amount * item.valor).toFixed(2)
+                        item.amount_product = setAmount
+                        item.val_product = parseFloat(products[i].val_max_product).toFixed(2)
+                        item.tItem = parseFloat(item.amount_product * item.val_product).toFixed(2)
                         save(item)
                     }
             })
@@ -71,12 +74,12 @@ function save(item) {
 }
 
 function edit(id, item) {
-    for (let i = 0; i < itens.length; i++) {
+    for (let i = 1; i < itens.length; i++) {
         if (itens[i].id == id) {
-            itens[i].item = item.item
+            itens[i].id_product = item.id_product
             itens[i].descric = item.descric
-            itens[i].amount = item.amount
-            itens[i].valor = item.valor
+            itens[i].amount_product = item.amount_product
+            itens[i].val_product = item.val_product
             itens[i].tItem = item.tItem
         }
     }
@@ -85,7 +88,7 @@ function edit(id, item) {
 function listItens() {
     let tbody = document.getElementById('tbody')
     tbody.innerText = ''
-    for (let i = 0; i < itens.length; i++) {
+    for (let i = 1; i < itens.length; i++) {
         let tr = tbody.insertRow()
         let td_id = tr.insertCell()
         let td_item = tr.insertCell()
@@ -95,10 +98,10 @@ function listItens() {
         let td_tItem = tr.insertCell()
         let td_acoes = tr.insertCell()
         td_id.innerText = itens[i].id
-        td_item.innerText = itens[i].item
+        td_item.innerText = itens[i].id_product
         td_descric.innerText = itens[i].descric
-        td_amount.innerText = itens[i].amount
-        td_valor.innerText = itens[i].valor
+        td_amount.innerText = itens[i].amount_product
+        td_valor.innerText = itens[i].val_product
         td_tItem.innerText = itens[i].tItem
         td_id.classList.add("center")
         td_item.classList.add("center")
@@ -125,11 +128,13 @@ function cancelItens() {
 function delItem(id) {
     if (confirm("Deseja remover o produto do ID: " + id)) {
         let tbody = document.getElementById("tbody")
-        for (let i = 0; itens.length > i; i++) {
+        for (let i = 1; itens.length > i; i++) {
             if (itens[i].id == id) {
                 itens.splice(i, 1)
                 tbody.deleteRow(i)
                 sumItens()
+                listItens()
+                //cancelItens()
             }
         }
     }
@@ -137,8 +142,8 @@ function delItem(id) {
 
 function valFields(item) {
     let msg = ''
-    if (item.item == '') { msg += 'Pesquise um Item !!\n' }
-    if (item.amount < 1) { msg += 'Informe a Quant !!\n' }
+    if (item.descric == "") { msg += 'Pesquise um Item !!\n' }
+    if (item.amount_product < 1) { msg += 'Informe a Quant !!\n' }
     if (msg != '') {
         alert(msg)
         return false
@@ -149,16 +154,16 @@ function valFields(item) {
 function prepareEdition(dados) {
     if (confirm("deseja relamente atualizar o item: " + dados.id)) {
         editId = dados.id
-        document.getElementById("submit_item").value = dados.item
-        document.getElementById("submit_amount").value = dados.amount
+        document.getElementById("submit_item").value = dados.id_product
+        document.getElementById("submit_amount").value = dados.amount_product
         document.getElementById('btn1').innerText = 'Atualizar'
     }
 }
 
 function sumItens() {
     let sum = 0
-    for (var i = 0; i < itens.length; i++) {
-        sum += (itens[i].amount * itens[i].valor)
+    for (var i = 1; i < itens.length; i++) {
+        sum += (itens[i].amount_product * itens[i].val_product)
     }
     total.innerHTML = `Total Produto(s): R$ ${parseFloat(sum).toFixed(3)}`
     return sum
@@ -166,20 +171,30 @@ function sumItens() {
 
 
 function payment(sum) {
-    let payment = 39.80
+    let payment = 1359.40
     let tProducts = 0
     tProducts = sumItens(sum)
     if (tProducts == 0) { alert("Nenhum item(s) no momento") } else {
         if (payment == tProducts) {
             alert("Pagto efet. com sucesso: " + payment)
             alert("venda está sendo enviada ...")
-            alert("Venda enviada com Sucesso !!")
-            localStorage.removeItem('key');
-            window.location.reload();
+            registerSale()
+            //alert("Venda enviada com Sucesso !!")
+            //localStorage.removeItem('key');
+            //window.location.reload();
         } else {
             let aPagar = tProducts - payment
             alert("O valor não bate com o Total dos Produtos !" +
                 "\nEfetue o pagamento de: " + aPagar)
         }
     }
+}
+
+function registerSale(e){
+    event.preventDefault(e)
+    axios.post(urlSales, itens)
+        .then(response => {
+            alert(JSON.stringify(response.data))
+        })
+        .catch(error => console.log(error))
 }

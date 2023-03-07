@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="?" />
+  <link href="css/login/style.css" rel="stylesheet">
+  <title>Registro de Usuário</title>
+</head>
+
+<body>
+
+  <form>
+    <div class="container">
+      <h1>Registrar Usuário</h1>
+      <p>Por favor, preencha este formulário para criar uma conta..</p>
+      <hr>
+
+      <label for="email"><b>Email</b></label>
+      <input type="text" placeholder="Enter Email" name="email" id="email" required>
+
+      <label for="psw"><b>Senha</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
+
+      <label for="psw-repeat"><b>Repita Senha</b></label>
+      <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+      <hr>
+
+      <p>Ao criar uma conta você concorda com nossos <a href="#">Termos & Privacidade</a>.</p>
+      <button onclick="register()" class="registerbtn">Registrar</button>
+    </div>
+
+    <div class="container signin">
+      <p>já tem uma conta? <a href="auth.html">Sign in</a>.</p>
+    </div>
+  </form>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script> -->
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="./js/register_user.js" defer></script>
+</body>
+
+</html>

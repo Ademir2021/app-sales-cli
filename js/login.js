@@ -1,7 +1,13 @@
 const userLogin = document.getElementById("user");
+const passLogin = document.getElementById("pass");
+
+
+const password = passLogin.value
+const result = "123"
+
 
 function login() {
-    if (user.value == "centroserra@gmail.com" && pass.value == "123") {
+    if (passLogin.value == result) {
         let id = 1
         let user_ = {}
          user_.auth = id++

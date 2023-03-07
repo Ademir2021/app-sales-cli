@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/Ademir2021/app-sales-cli/issues"
   },
-  "homepage": "https://github.com/Ademir2021/app-sales-cli#readme"
+  "homepage": "https://github.com/Ademir2021/app-sales-cli#readme",
+  "dependencies": {
+    "axios": "^1.3.4",
+    "bcryptjs": "^2.4.3"
+  },
+  "devDependencies": {
+    "@types/axios": "^0.14.0"
+  }
 }

@@ -1,22 +1,42 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/png" href="?" />
-    <title>Login - Vendas Rápida</title>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="?" />
+  <link href="css/login/style.css" rel="stylesheet">
+  <title>Login - Vendas Rápida</title>
 </head>
 
 <body>
-    <main>
-        <form>
-            <input type="text" id="user">
-            <input type="password" id="pass">
-            <button onclick="login()">Entrar</button>
-        </form>
-    </main>
+    <form>
+      <div class="imgcontainer">
+        <img src="/img/login/avatar.png" alt="Avatar" class="avatar">
+      </div>
+
+      <div class="container">
+        <label for="uname"><b>Usuário</b></label>
+        <input type="text" placeholder="Enter Username" id="user" required>
+
+        <label for="psw"><b>Senha</b></label>
+        <input type="password" placeholder="Enter Password" id="pass" required>
+
+        <button onclick="login()">Login</button>
+        <label>
+          <input  type="checkbox" checked="checked" name="remember"> Lembrar_me!!
+        </label>
+      </div>
+
+      <div class="container" style="background-color:#f1f1f1">
+        <button type="button" class="cancelbtn">Cancel</button>
+        <span class="psw">Esqueceu sua <a href="#">senha ?</a></span>
+      </div>
+      <div class="container signin">
+        <p>Ainda não tem uma conta? <a href="register_user.html">Sign Out !!</a>.</p>
+      </div>
+    </form>
     <script src="./js/login.js" defer></script>
 </body>
 
